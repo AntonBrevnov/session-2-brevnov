@@ -1,0 +1,52 @@
+﻿<Window x:Class="AgentsApp.Forms.EditAgentForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AgentsApp.Forms"
+        mc:Ignorable="d"
+        Title="Редактирование агента" Height="640" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <StackPanel>
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="300">
+            <TextBlock Text="Наименование" FontSize="16" Margin="0, 0, 0, 5" />
+            <TextBox Text="{Binding Name}" Height="30" FontSize="16" />
+        </StackPanel>
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="300">
+            <TextBlock Text="Тип агента" FontSize="16" Margin="0, 0, 0, 5" />
+            <ComboBox x:Name="typeOfAgentComboBox" DisplayMemberPath="Name" SelectedItem="{Binding TypeOfAgents}" Height="30" FontSize="16" />
+        </StackPanel>
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="300">
+            <TextBlock Text="Приоритет" FontSize="16" Margin="0, 0, 0, 5" />
+            <TextBox x:Name="priorityTextBox" Text="{Binding Priority}" Height="30" FontSize="16" />
+        </StackPanel>
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="300">
+            <TextBlock Text="Адрес" FontSize="16" Margin="0, 0, 0, 5" />
+            <TextBox Text="{Binding Address}" Height="30" FontSize="16" />
+        </StackPanel>
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="300">
+            <TextBlock Text="ИНН" FontSize="16" Margin="0, 0, 0, 5" />
+            <TextBox x:Name="innTextBox" Text="{Binding INN}" Height="30" FontSize="16" />
+        </StackPanel>
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="300">
+            <TextBlock Text="КПП" FontSize="16" Margin="0, 0, 0, 5" />
+            <TextBox x:Name="kppTextBox" Text="{Binding KPP}" Height="30" FontSize="16" />
+        </StackPanel>
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="300">
+            <TextBlock Text="ФИО директора" FontSize="16" Margin="0, 0, 0, 5" />
+            <TextBox Text="{Binding Director}" Height="30" FontSize="16" />
+        </StackPanel>
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="300">
+            <TextBlock Text="Телефон" FontSize="16" Margin="0, 0, 0, 5" />
+            <TextBox Text="{Binding Phone}" Height="30" FontSize="16" />
+        </StackPanel>
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="300" Margin="0, 0, 0, 10">
+            <TextBlock Text="Электронная почта" FontSize="16" Margin="0, 0, 0, 5" />
+            <TextBox Text="{Binding Email}" Height="30" FontSize="16" />
+        </StackPanel>
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="300" Orientation="Horizontal">
+            <Button x:Name="acceptButton" Width="130" Height="35" Content="Применить" HorizontalAlignment="Left" Click="AcceptButton_Click" />
+            <Button x:Name="cancelButton" Width="130" Height="35" Content="Отмена" Margin="40, 0, 0, 0" Click="CancelButton_Click" />
+        </StackPanel>
+        <Button x:Name="deleteAgentButton" Width="300" Height="25" Content="Удалить агента" HorizontalAlignment="Center" VerticalAlignment="Top" Click="DeleteAgentButton_Click" Margin="0, 10, 0, 0" />
+    </StackPanel>
+</Window>

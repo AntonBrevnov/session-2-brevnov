@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="user2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Agents">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeID" Type="Int64" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Logotype" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Priority" Type="Int32" />
+    <Property Name="Director" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="INN" Type="Double" />
+    <Property Name="KPP" Type="Double" />
+    <NavigationProperty Name="TypeOfAgents" Relationship="user2Model.FK_Agents_TypeOfAgents" FromRole="Agents" ToRole="TypeOfAgents" />
+    <NavigationProperty Name="ProductSale" Relationship="user2Model.FK_ProductSale_Agents" FromRole="Agents" ToRole="ProductSale" />
+  </EntityType>
+  <EntityType Name="ChangePriorityHistory">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="AgentID" Type="Int64" />
+    <Property Name="Priority" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ProductSale">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int64" Nullable="false" />
+    <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="AgentID" Type="Int64" Nullable="false" />
+    <Property Name="AgentName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DateOfRelease" Type="DateTime" Precision="3" />
+    <Property Name="CountOfProduct" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Agents" Relationship="user2Model.FK_ProductSale_Agents" FromRole="ProductSale" ToRole="Agents" />
+    <NavigationProperty Name="ProductsShort" Relationship="user2Model.FK_ProductSale_ProductsShort" FromRole="ProductSale" ToRole="ProductsShort" />
+  </EntityType>
+  <EntityType Name="ProductsShort">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="TypeID" Type="Int64" Nullable="false" />
+    <Property Name="TypeName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Article" Type="Double" />
+    <Property Name="CountOfPeople" Type="Double" />
+    <Property Name="FactoryNumber" Type="Double" />
+    <Property Name="MinPrice" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="ProductSale" Relationship="user2Model.FK_ProductSale_ProductsShort" FromRole="ProductsShort" ToRole="ProductSale" />
+    <NavigationProperty Name="TypeOfProducts" Relationship="user2Model.FK_ProductsShort_TypeOfProducts" FromRole="ProductsShort" ToRole="TypeOfProducts" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TypeOfAgents">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Agents" Relationship="user2Model.FK_Agents_TypeOfAgents" FromRole="TypeOfAgents" ToRole="Agents" />
+  </EntityType>
+  <EntityType Name="TypeOfProducts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ProductsShort" Relationship="user2Model.FK_ProductsShort_TypeOfProducts" FromRole="TypeOfProducts" ToRole="ProductsShort" />
+  </EntityType>
+  <EntityContainer Name="user2Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Agents" EntityType="Self.Agents" />
+    <EntitySet Name="ChangePriorityHistory" EntityType="Self.ChangePriorityHistory" />
+    <EntitySet Name="ProductSale" EntityType="Self.ProductSale" />
+    <EntitySet Name="ProductsShort" EntityType="Self.ProductsShort" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="TypeOfAgents" EntityType="Self.TypeOfAgents" />
+    <EntitySet Name="TypeOfProducts" EntityType="Self.TypeOfProducts" />
+    <AssociationSet Name="FK_Agents_TypeOfAgents" Association="user2Model.FK_Agents_TypeOfAgents">
+      <End Role="TypeOfAgents" EntitySet="TypeOfAgents" />
+      <End Role="Agents" EntitySet="Agents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductSale_Agents" Association="user2Model.FK_ProductSale_Agents">
+      <End Role="Agents" EntitySet="Agents" />
+      <End Role="ProductSale" EntitySet="ProductSale" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductSale_ProductsShort" Association="user2Model.FK_ProductSale_ProductsShort">
+      <End Role="ProductsShort" EntitySet="ProductsShort" />
+      <End Role="ProductSale" EntitySet="ProductSale" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductsShort_TypeOfProducts" Association="user2Model.FK_ProductsShort_TypeOfProducts">
+      <End Role="TypeOfProducts" EntitySet="TypeOfProducts" />
+      <End Role="ProductsShort" EntitySet="ProductsShort" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_Agents_TypeOfAgents">
+    <End Type="user2Model.TypeOfAgents" Role="TypeOfAgents" Multiplicity="1" />
+    <End Type="user2Model.Agents" Role="Agents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOfAgents">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Agents">
+        <PropertyRef Name="TypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductSale_Agents">
+    <End Type="user2Model.Agents" Role="Agents" Multiplicity="1" />
+    <End Type="user2Model.ProductSale" Role="ProductSale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agents">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProductSale">
+        <PropertyRef Name="AgentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductSale_ProductsShort">
+    <End Type="user2Model.ProductsShort" Role="ProductsShort" Multiplicity="1" />
+    <End Type="user2Model.ProductSale" Role="ProductSale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductsShort">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProductSale">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductsShort_TypeOfProducts">
+    <End Type="user2Model.TypeOfProducts" Role="TypeOfProducts" Multiplicity="1" />
+    <End Type="user2Model.ProductsShort" Role="ProductsShort" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOfProducts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProductsShort">
+        <PropertyRef Name="TypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
