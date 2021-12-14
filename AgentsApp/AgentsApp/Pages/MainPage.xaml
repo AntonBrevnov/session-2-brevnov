@@ -18,8 +18,8 @@
             <TextBox x:Name="searchTextBox" VerticalAlignment="Center" HorizontalAlignment="Left" Width="450" Height="35" Margin="25, 0" TextChanged="SearchTextBox_TextChanged" />
             <ComboBox x:Name="sorterComboBox" VerticalAlignment="Center" HorizontalAlignment="Center" Width="250" Height="35" SelectionChanged="SorterComboBox_SelectionChanged">
                 <ComboBox.Items>
-                    <ComboBoxItem>По возрастанию</ComboBoxItem>
-                    <ComboBoxItem>По убыванию</ComboBoxItem>
+                    <ComboBoxItem Content="По возрастанию" />
+                    <ComboBoxItem Content="По убыванию" />
                 </ComboBox.Items>
             </ComboBox>
             <ComboBox x:Name="filterComboBox" VerticalAlignment="Center" HorizontalAlignment="Center" Width="250" Height="35" Margin="25, 0" SelectionChanged="FilterComboBox_SelectionChanged" DisplayMemberPath="Name" SelectedItem="{Binding TypeOfAgents}" />

@@ -114,7 +114,14 @@ namespace AgentsApp.Pages
         {
             try
             {
-                UpdateAgentsWithSearchOption();
+                if (searchTextBox.Text != "")
+                {
+                    var agents = user2Entities.GetContext().Agents
+                        .Where(
+                            agent => (agent.Name + agent.Email + agent.Phone).ToLower().Contains(searchTextBox.Text.ToLower())
+                        ).ToList();
+                    UpdatePaginatedList(agents);
+                }
             }
             catch (Exception exc)
             {
@@ -126,7 +133,16 @@ namespace AgentsApp.Pages
         {
             try
             {
-                UpdateAgentsWithSearchOption();
+                if ((sorterComboBox.SelectedItem as ComboBoxItem).Content as string == "По возрастанию")
+                {
+                    var agents = user2Entities.GetContext().Agents.OrderBy(agent => agent.Priority).ToList();
+                    UpdatePaginatedList(agents);
+                }
+                else if ((sorterComboBox.SelectedItem as ComboBoxItem).Content as string == "По убыванию")
+                {
+                    var agents = user2Entities.GetContext().Agents.OrderByDescending(agent => agent.Priority).ToList();
+                    UpdatePaginatedList(agents);
+                }
             }
             catch (Exception exc)
             {
@@ -138,50 +154,17 @@ namespace AgentsApp.Pages
         {
             try
             {
-                UpdateAgentsWithSearchOption();
+                var typeID = (filterComboBox.SelectedItem as TypeOfAgents).ID;
+                var agents = user2Entities.GetContext().Agents
+                    .Where(
+                        agent =>
+                        agent.TypeID == typeID
+                    ).ToList();
+                UpdatePaginatedList(agents);
             }
             catch (Exception exc)
             {
                 MessageBox.Show($"Ошибка: {exc.Message}", "Session 2", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void UpdateAgentsWithSearchOption()
-        {
-            _currentPageIndex = 0;
-            if (searchTextBox.Text != "")
-            {
-                if (filterComboBox.SelectedItem == null)
-                {
-                    var agents = user2Entities.GetContext().Agents
-                        .Where(
-                            agent => (agent.Name + agent.Email + agent.Phone).ToLower().Contains(searchTextBox.Text.ToLower())
-                        ).ToList();
-                    UpdatePaginatedList(agents);
-                }
-                else if ((filterComboBox.SelectedItem as TypeOfAgents).Name == "Все типы")
-                {
-                    var agents = user2Entities.GetContext().Agents
-                        .Where(
-                            agent => (agent.Name + agent.Email + agent.Phone).ToLower().Contains(searchTextBox.Text.ToLower())
-                        ).ToList();
-                    UpdatePaginatedList(agents);
-                }
-                else
-                {
-                    var typeID = (filterComboBox.SelectedItem as TypeOfAgents).ID;
-                    var agents = user2Entities.GetContext().Agents
-                        .Where(
-                            agent => (agent.Name + agent.Email + agent.Phone).ToLower().Contains(searchTextBox.Text.ToLower()) &&
-                            agent.TypeID == typeID
-                        ).ToList();
-                    UpdatePaginatedList(agents);
-                }
-            }
-            else
-            {
-                var agents = user2Entities.GetContext().Agents.ToList();
-                UpdatePaginatedList(agents);
             }
         }
 
